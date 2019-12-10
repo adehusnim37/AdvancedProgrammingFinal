@@ -52,6 +52,36 @@ void sortid(struct barang brg[10],int n){//sort id(insertion)
     searchid(brg,n);
 }
 
+void sortkategori(struct barang brg[10],int z){
+    struct barang temp;
+    int i,j;
+    for (int i = 0; i < z; ++i) {
+        temp=brg[i];
+        j=i-1;
+        while (temp.kategori_barang<brg[i].kategori_barang && j>=0){
+            brg[j+1]=brg[j];
+            j=j-1;
+        }
+        brg[j+1]=temp;
+    }
+    searchid(brg,z);
+}
+
+void harga(struct barang brg[10],int x){
+    struct barang temp;
+    int i,j;
+    for (int i = 0; i<x ; ++i) {
+        temp=brg[i];
+        j=i-1;
+        while (temp.harga<brg[j].harga && j>=0){
+            brg[j+1]=brg[j];
+            j=j-1;
+        }
+        brg[j+1=temp;
+    }
+    searchid(brg,x);
+}
+
 void sortnama(struct barang brg[10],int n){//sort nama(insertion)
     struct barang temp;
     int i,j;
@@ -64,26 +94,55 @@ void sortnama(struct barang brg[10],int n){//sort nama(insertion)
         }
         brg[j+1]=temp;
     }
+    searchid(brg,n);
 }
 
-void update(struct barang brg[10], int j, int scr){
-        int i;
-        int chg[10];
-        printf ("\nUbah Data Barang\n");
-        printf ("Masukkan Id Barang Yang Ingin Di Ubah : ");
-        scanf ("%d", &scr);
-        for (int i = 0; i < j; ++i) {
-            if (brg[i].id == scr) {
-                printf ("Masukkan stok barang yang ingin diganti : ");
-                scanf ("%d", &chg[i]);
-                chg[i] = brg[i].jumlah_barang; //mengganti jumlah dari variable chg
-                printf ("Jumlah barang telah di update!");
-            } if (brg[i].id !=scr) {
-                printf ("Kamu memasukkan inputan yang salah ya.");
-            }
+void sortjmlbrg(struct barang brg[10],int y){
+    struct barang temp;
+    int i,j;
+    for (int i = 0; i < y ; ++i) {
+        temp=brg[i];
+        j=i-1;
+        while (temp.jumlah_barang<brg[i].jumlah_barang && j>=0){
+            brg[j+1]=brg[j];
+            j=j-1;
         }
+        brg[j+1]=temp;
+    }
+    searchid(brg,y);
 }
-void searchid(struct barang brg[10],int n){//search id(interpolation)
+
+/*
+void searchnama(struct barang brg[10],int n){//search id(interpolation)
+	int car, d;
+	printf("Masukkan Nama Yang Ingin Dicari : ");
+	scanf("%d",&car);
+	int low=0;
+	int high=n-1;
+	int flag=-1;
+	while( low<=high && car>=brg[low].nama_barang  &&  car<=brg[high].nama_barang  ){
+		d = (car-brg[low].nama_barang)/(brg[high].nama_barang-brg[low].nama_barang)*(high-low)+low;
+		if(brg[d].nama_barang>car){
+			high = d-1;
+		}
+		else if(brg[d].nama_barang<car){
+			low = d+1;
+		}
+		else{
+			flag=1;
+			break;
+		}
+	}
+	if(flag!=1){
+		printf("\nData tidak ditemukan");
+	}
+	else{
+		view(brg,d);
+	}
+}
+*/
+
+int searchid(struct barang brg[10],int n){//search id(interpolation)
     int car,d;
     printf("Masukkan Id Yang Ingin Dicari : ");
     scanf("%d",&car);
@@ -124,7 +183,7 @@ void sortsearch(struct barang brg[10],int n) {//menu sort dan search
             getch ();
             break;
         case 2 : //nama barang
-            sortnama(brg,n);
+            //sortnama(brg,n);
             getch ();
             break;
         default :
@@ -132,11 +191,53 @@ void sortsearch(struct barang brg[10],int n) {//menu sort dan search
     }
 }
 
+int searchuptd(struct barang brg[10],int n){//search update(interpolation)
+    int car,d;
+    printf("Masukkan Id Yang Ingin Update : ");
+    scanf("%d",&car);
+    int low=0;
+    int high=n-1;
+    int flag=-1;
+    while( low<=high && car>=brg[low].id  &&  car<=brg[high].id  ){
+        d = (car-brg[low].id)/(brg[high].id-brg[low].id)*(high-low)+low;
+        if(brg[d].id>car){
+            high = d-1;
+        }
+        else if(brg[d].id<car){
+            low = d+1;
+        }
+        else{
+            flag=1;
+            break;
+        }
+    }
+    if(flag!=1){
+        printf("\nData tidak ditemukan");
+    }
+    else{
+        update(brg,d);
+    }
+}
+
+int update(struct barang brg[10],int n){
+    printf("- Update Id Barang           : ");//input id
+    scanf("%d",&brg[n].id);
+    printf("- Update Nama Barang         : ");//input nama
+    scanf("%s",&brg[n].nama_barang);
+    printf("- Update Kategori Barang \n  1.Makanan	3.ATK		5.Pakaian \n  2.Minuman	4.Elektronik \n  Pilih : ");//input kategori
+    scanf("%d",&brg[n].kategori_barang);
+    printf("- Update Harga Barang        : ");//input harga
+    scanf("%f",&brg[n].harga);
+    printf("- Update No Rak Untuk Barang : ");// inout rak
+    scanf("%d",&brg[n].rak);
+    printf("- Update Jumlah Barang       : ");//input jumlah
+    scanf("%d",&brg[n].jumlah_barang);
+}
+
 main(){
     struct barang brg[10];
     int pil=0;
     int i=0;
-    int scr;
     while (pil != 4) {
         printf ("\nAplikasi Kasir\n");
         printf ("=====================================\n");
@@ -150,8 +251,7 @@ main(){
                 i++;
                 break;
             case 2 :
-                update(brg,i,scr);
-                i++;
+                sortid(brg,i);
                 break;
             case 3 :
                 sortsearch(brg,i);
