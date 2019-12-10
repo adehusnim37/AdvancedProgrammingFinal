@@ -31,10 +31,55 @@ void input(struct barang brg[10],int n){
 void view(struct barang brg[10],int i){
 	printf("\n Id Barang       : %d",brg[i].id);
 	printf("\n Nama Barang     : %s",brg[i].nama_barang);
-	printf("\n Kategori Barang : %d",brg[i].kategori_barang);
+	if(brg[i].kategori_barang==1){
+		printf("\n Kategori Barang : Makanan");
+	}
+	else if(brg[i].kategori_barang==2){
+		printf("\n Kategori Barang : Minuman");
+	}
+	else if(brg[i].kategori_barang==3){
+		printf("\n Kategori Barang : ATK");
+	}
+	else if(brg[i].kategori_barang==4){
+		printf("\n Kategori Barang : Elektronik");
+	}
+	else if(brg[i].kategori_barang==5){
+		printf("\n Kategori Barang : Pakaian");
+	}
+	else{
+		printf("\n Kategori Barang : EROR");
+	}
 	printf("\n Harga Barang    : %f",brg[i].harga);
 	printf("\n No Rak Barang   : %d",brg[i].rak);
 	printf("\n Jumlah Barang   : %d\n",brg[i].jumlah_barang);
+}
+
+void viewsort(struct barang brg[10],int i){
+	for (int j=0; j<i; j++){
+		printf("\n Id Barang       : %d",brg[j].id);
+		printf("\n Nama Barang     : %s",brg[j].nama_barang);
+		if(brg[j].kategori_barang==1){
+			printf("\n Kategori Barang : Makanan");
+		}
+		else if(brg[j].kategori_barang==2){
+			printf("\n Kategori Barang : Minuman");
+		}
+		else if(brg[j].kategori_barang==3){
+			printf("\n Kategori Barang : ATK");
+		}
+		else if(brg[j].kategori_barang==4){
+			printf("\n Kategori Barang : Elektronik");
+		}
+		else if(brg[j].kategori_barang==5){
+			printf("\n Kategori Barang : Pakaian");
+		}
+		else{
+			printf("\n Kategori Barang : EROR");
+		}
+		printf("\n Harga Barang    : %f",brg[j].harga);
+		printf("\n No Rak Barang   : %d",brg[j].rak);
+		printf("\n Jumlah Barang   : %d\n",brg[j].jumlah_barang);
+	}
 }
 
 void sortid(struct barang brg[10],int n){//sort id(insertion)
@@ -49,7 +94,7 @@ void sortid(struct barang brg[10],int n){//sort id(insertion)
 		}
 		brg[j+1]=temp;
 	}
-	searchid(brg,n);	
+	//searchid(brg,n);	
 }
 
 void sortnama(struct barang brg[10],int n){//sort nama(insertion)
@@ -64,7 +109,63 @@ void sortnama(struct barang brg[10],int n){//sort nama(insertion)
 		}
 		brg[j+1]=temp;
 	}
-	searchid(brg,n);		
+}
+
+
+void sortkategori(struct barang brg[10],int z){
+    struct barang temp;
+    int i,j;
+    for (int i = 0; i<z; ++i) {
+        temp=brg[i];
+        j=i-1;
+        while (temp.kategori_barang<brg[j].kategori_barang && j>=0){
+            brg[j+1]=brg[j];
+            j=j-1;
+        }
+        brg[j+1]=temp;
+    }
+}
+
+void sortharga(struct barang brg[10],int x){
+    struct barang temp;
+    int i,j;
+    for (int i = 0; i<x ; ++i) {
+        temp=brg[i];
+        j=i-1;
+        while (temp.harga<brg[j].harga && j>=0){
+            brg[j+1]=brg[j];
+            j=j-1;
+        }
+        brg[j+1]=temp;
+    }
+}
+
+void sortrak(struct barang brg[10],int n){//sort nama(insertion)
+    struct barang temp;
+    int i,j;
+    for(i=0; i<n; i++){
+        temp=brg[i];
+        j=i-1;
+        while(temp.rak<brg[j].rak && j>=0){
+            brg[j+1]=brg[j];
+            j=j-1;
+        }
+        brg[j+1]=temp;
+    }
+}
+
+void sortjmlbrg(struct barang brg[10],int y){
+    struct barang temp;
+    int i,j;
+    for (int i = 0; i < y ; ++i) {
+        temp=brg[i];
+        j=i-1;
+        while (temp.jumlah_barang<brg[i].jumlah_barang && j>=0){
+            brg[j+1]=brg[j];
+            j=j-1;
+        }
+        brg[j+1]=temp;
+    }
 }
 
 /*
@@ -135,6 +236,7 @@ void sortsearch(struct barang brg[10],int n) {//menu sort dan search
     switch (pilss) {
         case 1 : //id barang
         	sortid(brg,n);
+        	searchid(brg,n);
             getch ();
             break;
         case 2 : //nama barang
@@ -170,7 +272,7 @@ int searchuptd(struct barang brg[10],int n){//search update(interpolation)
 		printf("\nData tidak ditemukan");
 	}
 	else{
-		update(brg,d);
+		//update(brg,d);
 	}
 }
 
@@ -189,16 +291,18 @@ int update(struct barang brg[10],int n){
 	scanf("%d",&brg[n].jumlah_barang);
 }
 
-main(){
+int main(){
 	struct barang brg[10];
 	int pil=0;
 	int i=0;
 	while (pil != 4) {
+		printf ("=====================================");
         printf ("\nAplikasi Kasir\n");
         printf ("=====================================\n");
-        printf ("1.Input \n2.Update \n3.Sort & Search \n4.Exit\n");
+        printf ("1.Input \n2.Update \n3.Search & View \n4.Sort & View\n5.Exit\n");
         printf ("Pilih : ");
         scanf ("%d", &pil);
+        printf ("=====================================\n");
 
         switch (pil) {
             case 1 :
@@ -211,6 +315,46 @@ main(){
             case 3 :
             	sortsearch(brg,i);
                 break;
+            case 4 :
+            	printf ("=====================================");
+            	printf ("\nMenampilkan Data Urut Berdasarkan\n");
+		        printf ("=====================================\n");
+		        printf ("1.Id \n2.Nama \n3.Kategori \n4.Harga \n5.Rak \n6.jumlah\n");
+		        printf ("Pilih : ");
+		        scanf ("%d", &pil);
+		
+		        switch (pil) {
+		            case 1 :
+		            	sortid(brg,i);
+		            	printf("\nUrut Berdasarkan Id\n");
+		            	viewsort(brg,i);
+		                break;
+		            case 2 :
+		            	sortnama(brg,i);
+		            	printf("\nUrut Berdasarkan Nama\n");
+		            	viewsort(brg,i);
+		                break;
+		            case 3 :
+		            	sortkategori(brg,i);
+		            	printf("\nUrut Berdasarkan Kategori\n");
+		            	viewsort(brg,i);
+						break;
+		            case 4 :
+		            	sortharga(brg,i);
+		            	printf("\nUrut Berdasarkan Harga\n");
+		            	viewsort(brg,i);
+		            	break;
+		            case 5 :
+		            	sortrak(brg,i);
+		            	printf("\nUrut Berdasarkan No Rak\n");
+		            	viewsort(brg,i);
+		                break;
+		            case 6 :
+		            	sortjmlbrg(brg,i);
+		            	printf("\nUrut Berdasarkan Jumlah Barang\n");
+		            	viewsort(brg,i);
+		                break;
+		    	}
             default :
                 printf ("Menu Eror");
         }
