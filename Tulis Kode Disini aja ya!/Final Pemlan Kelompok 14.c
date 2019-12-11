@@ -262,7 +262,7 @@ void sortsearch(struct barang brg[10],int n) {//menu sort dan search
     }
 }
 
-int searchuptd(struct barang brg[10],int n){//search update(interpolation)
+int searchupdt(struct barang brg[10],int n){//search update(interpolation)
 	int car,d;
 	printf("Masukkan Id Yang Ingin Update : ");
 	scanf("%d",&car);
@@ -286,17 +286,11 @@ int searchuptd(struct barang brg[10],int n){//search update(interpolation)
 		printf("\nData tidak ditemukan");
 	}
 	else{
-		//update(brg,d);
+		update(brg,d);
 	}
 }
 
 int update(struct barang brg[10],int n){
-	printf("- Update Id Barang           : ");//input id
-	scanf("%d",&brg[n].id);
-	printf("- Update Nama Barang         : ");//input nama
-	scanf("%s",&brg[n].nama_barang);
-	printf("- Update Kategori Barang \n  1.Makanan	3.ATK		5.Pakaian \n  2.Minuman	4.Elektronik \n  Pilih : ");//input kategori
-	scanf("%d",&brg[n].kategori_barang);
 	printf("- Update Harga Barang        : ");//input harga
 	scanf("%f",&brg[n].harga);
 	printf("- Update No Rak Untuk Barang : ");// inout rak
@@ -325,6 +319,7 @@ int main(){
                 break;
             case 2 :
             	sortid(brg,i);
+            	searchupdt(brg,i);
                 break;
             case 3 :
             	sortsearch(brg,i);
