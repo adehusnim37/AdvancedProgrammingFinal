@@ -248,7 +248,7 @@ void sortsearch(struct barang brg[10],int n) {//menu sort dan search
             getch ();
             break;
         default :
-            printf ("Eror");
+            printf ("Error");
     }
 }
 
@@ -294,7 +294,7 @@ int main(){
     struct barang brg[10];
     int pil=0;
     int i=0;
-    while (pil != 4) {
+    while (pil != 5) {
         printf ("=====================================");
         printf ("\nAplikasi Kasir\n");
         printf ("=====================================\n");
@@ -370,9 +370,15 @@ int main(){
                                 break;
                         }
                         break;
+                        default :
+                        	printf("Menu Error");
                 }
+            break;
+            case 5 :
+            	pil=5;
+            	break;
             default :
-                printf ("Menu Eror");
+                printf ("Menu Error");
         }
     }
 }
