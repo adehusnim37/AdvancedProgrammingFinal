@@ -103,7 +103,7 @@ void sortnama(struct barang brg[10],int n){//sort nama(insertion)
 	for(i=0; i<n; i++){
 		temp=brg[i];
 		j=i-1;
-		while(temp.nama_barang<brg[j].nama_barang && j>=0){
+		while(strcmp(temp.nama_barang,brg[j].nama_barang )<0&& j>=0){
 			brg[j+1]=brg[j];
 			j=j-1;
 		}
@@ -154,13 +154,13 @@ void sortrak(struct barang brg[10],int n){//sort nama(insertion)
     }
 }
 
-void sortjmlbrg(struct barang brg[10],int y){
+void sortjmlbrgasc(struct barang brg[10],int y){//sort jumlah ascending
     struct barang temp;
     int i,j;
-    for (int i = 0; i < y ; ++i) {
+    for (i = 0; i < y ; i++) {
         temp=brg[i];
         j=i-1;
-        while (temp.jumlah_barang<brg[i].jumlah_barang && j>=0){
+        while (temp.jumlah_barang < brg[j].jumlah_barang && j>=0){
             brg[j+1]=brg[j];
             j=j-1;
         }
@@ -168,15 +168,29 @@ void sortjmlbrg(struct barang brg[10],int y){
     }
 }
 
-/*
-void searchnama(struct barang brg[10],int n){//search id(interpolation)
-	int car, d;
+void sortjmlbrgdsc(struct barang brg[10],int y){//sort jumlah descending
+    struct barang temp;
+    int i,j;
+    for (i = 0; i < y ; i++) {
+        temp=brg[i];
+        j=i-1;
+        while (temp.jumlah_barang > brg[j].jumlah_barang && j>=0){
+            brg[j+1]=brg[j];
+            j=j-1;
+        }
+        brg[j+1]=temp;
+    }
+}
+
+
+/*void searchnama(struct barang brg[10],int n){//search id(interpolation)
+	char car[20], d;
 	printf("Masukkan Nama Yang Ingin Dicari : ");
-	scanf("%d",&car);
+	scanf("%s",&car);
 	int low=0;
 	int high=n-1;
 	int flag=-1;
-	while( low<=high && car>=brg[low].nama_barang  &&  car<=brg[high].nama_barang  ){
+	while( low<=high && strcmp(car,brg[low].nama_barang)>=0  &&  strcmp(car<=brg[high].nama_barang )<=0 ){
 		d = (car-brg[low].nama_barang)/(brg[high].nama_barang-brg[low].nama_barang)*(high-low)+low;
 		if(brg[d].nama_barang>car){
 			high = d-1;
@@ -195,8 +209,8 @@ void searchnama(struct barang brg[10],int n){//search id(interpolation)
 	else{
 		view(brg,d);
 	}
-}
-*/
+}*/
+
 
 int searchid(struct barang brg[10],int n){//search id(interpolation)
 	int car,d;
@@ -350,9 +364,25 @@ int main(){
 		            	viewsort(brg,i);
 		                break;
 		            case 6 :
-		            	sortjmlbrg(brg,i);
-		            	printf("\nUrut Berdasarkan Jumlah Barang\n");
-		            	viewsort(brg,i);
+	            		printf ("=====================================");
+		            	printf ("\nMenampilkan Jumlah Urut Berdasarkan\n");
+				        printf ("=====================================\n");
+				        printf ("1.Terkecil-Terbesar \n2.Terbesar-Terkecil\n");
+				        printf ("Pilih : ");
+				        scanf ("%d", &pil);
+				
+				        switch (pil) {
+				            case 1 :
+				            	sortjmlbrgasc(brg,i);
+				            	printf("\nUrut Berdasarkan Jumlah Barang\n");
+				            	viewsort(brg,i);
+				                break;
+				            case 2 :
+				            	sortjmlbrgdsc(brg,i);
+				            	printf("\nUrut Berdasarkan Jumlah Barang\n");
+				            	viewsort(brg,i);
+				                break;
+				        }
 		                break;
 		    	}
             default :
